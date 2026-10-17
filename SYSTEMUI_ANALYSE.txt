@@ -1,0 +1,25 @@
+OnePlus 15 SystemUI.apk – lokale DEX-Klassenanalyse
+=====================================================
+Datei: vom Nutzer gelieferte /mnt/data/SystemUI.apk
+Größe: 109,436,908 Bytes
+
+classes2.dex:
+ Lcom/android/systemui/statusbar/policy/Clock;
+ super Landroid/widget/TextView;
+ Methoden: updateClock(), onAttachedToWindow(), onDensityOrFontScaleChanged(), ...
+
+classes4.dex:
+ Lcom/oplus/systemui/statusbar/widget/StatClock;
+ super Lcom/android/systemui/statusbar/policy/Clock;
+ Methoden: onDraw(Canvas), onAttachedToWindow(), onConfigurationChanged(), ...
+ onDraw-Code prüfte Aufrufe:
+  Lcom/oplus/systemui/statusbar/widget/StatClock;->getTransXForCoord
+  Landroid/graphics/Canvas;->save / translate / restore
+  Landroid/widget/TextView;->onDraw
+ Deshalb ist setTypeface auf StatClock plausibel und direkt zielgerichtet.
+
+ Lcom/oplus/systemui/statusbar/widget/OplusKeyguardStatusBarClock;
+ super Lcom/android/systemui/statusbar/policy/Clock;
+ Das separate Keyguard-Widget ist vom Hook ausgeschlossen.
+
+Kein Test auf dem Gerät, keine APK gebaut.

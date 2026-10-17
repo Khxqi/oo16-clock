@@ -1,0 +1,26 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'dev.clock.font.rs'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'dev.clock.font.rs'
+        minSdk 29
+        targetSdk 35
+        versionCode 2
+        versionName '1.1-oos16-statclock'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildTypes {
+        debug { minifyEnabled false }
+        release { minifyEnabled false }
+    }
+}
+
+dependencies {
+    // API is provided by LSPosed at runtime; do not package it in the APK.
+    compileOnly 'io.github.libxposed:api:102.0.0'
+}
