@@ -67,7 +67,7 @@ public final class ClockModule extends XposedModule {
         // protect against unexpected subclasses or future firmware changes.
         String actualClass = view.getClass().getName();
         if (KEYGUARD_CLOCK.equals(actualClass) || !STAT_CLOCK.equals(actualClass)) return;
-        Typeface requested = getFont();
+        Typeface requested = getFont(view.getContext());
         if (requested == null || view.getTypeface() == requested) return;
         view.setTypeface(requested);
         if (!LOGGED.containsKey(view)) {
@@ -76,11 +76,11 @@ public final class ClockModule extends XposedModule {
         }
     }
 
-    private static Typeface getFont() {
+    private static Typeface getFont(android.content.Context context) {
         if (fontAttempted) return font;
         synchronized (ClockModule.class) {
             if (!fontAttempted) {
-                font = EmbeddedFont.load();
+                font = EmbeddedFont.load(context);
                 fontAttempted = true;
             }
         }
